@@ -1,0 +1,51 @@
+{{define "adminImage"}}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>画像ビューワー</title>
+        <link rel="stylesheet" href="/assets/css/bulma.min.css">
+        <link rel="stylesheet" href="/assets/css/admin.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    </head>
+    <body>
+        {{ template "adminHeader" }}
+        <section class="section">
+            <div class="container">
+                <div class="contents">
+                    <h1 class="title">
+                        画像ビューワー
+                    </h1>
+
+                    <h2>
+                        {{.Image.Id}}
+                    </h2>
+
+                    <img border="0" src="{{ imagePrefix }}/{{.Image.Name}}" width="128" height="128" alt="イラスト1">
+
+                    <form action='{{ reverse "AdminImageUpdate" }}' method="post" id="article" enctype="multipart/form-data">
+                        <fieldset form="article">
+                            <input type="file" name="image" size="30">
+                        </fieldset>
+                        <div class="control">
+                            <button type="submit" class="button is-primary">更新する</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="contents">
+                    <form action={{ reverse "AdminImageDelete" }} method="post" id="article">
+                            <div class="control">
+                                <input hidden="true" name="imageId" class="input" type="hidden" value={{.Image.Id}}>
+                            </div>
+                        <div class="control">
+                            <button type="submit" class="button is-danger">削除する</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+{{end}}

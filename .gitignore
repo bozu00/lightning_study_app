@@ -1,0 +1,7 @@
+/tmp
+*.swp
+/uploads
+./google_application_credentials.json
+google_application_credentials.json
+main
+.DS_Store

@@ -1,0 +1,16 @@
+.section {
+    min-height: 800px;
+    background-color: #DDDBF0;
+}
+
+.container {
+    background-color: white;
+}
+
+.contents {
+    padding:20px;
+}
+
+fieldset {
+    border-width: 0px;
+}

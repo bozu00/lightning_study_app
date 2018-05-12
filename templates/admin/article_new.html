@@ -1,0 +1,67 @@
+{{define "newArticle"}}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>新規記事画面</title>
+        <link rel="stylesheet" href="/assets/css/bulma.min.css">
+        <link rel="stylesheet" href="/assets/css/admin.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    </head>
+    <body>
+        {{ template "adminHeader" }}
+        <section class="section">
+            <div class="container">
+                <div class="contents">
+                    <h1 class="title">
+                        新規記事画面 
+                    </h1>
+
+                    <fieldset form="article">
+                        <div class="field">
+                            <div class="control">
+                                <label for="title">記事タイトル</label>
+                                <input name="title" class="input" type="text" placeholder="Primary input" form="article">
+                            </div>
+                            <div class="control">
+                                <label for="description">Description</label>
+                                <input name="description" class="input" type="text" placeholder="Primary input"  form="article">
+                            </div>
+                            <div class="control">
+                                <label for="eyecatch">アイキャッチ画像ID</label>
+                                <input name="eyecatch" class="input" type="number" placeholder="Primary input" form="article" >
+                            </div>
+                            <div class="control">
+                                <label for="toc">目次</label>
+                                <input name="toc" class="input" type="text" placeholder="Primary input"  form="article">
+                            </div>
+                            <div class="content">
+                                <label for="content">記事メイン</label>
+                                <textarea name="content" class="textarea" placeholder="10 lines of textarea" rows="20"  form="article"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="checkbox">
+                                <input name="is_publish" type="checkbox"  form="article">
+                                公開設定 
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <form action={{ reverse "AdminArticleCreate" }} method="post" id="article">
+                        <div class="field">
+                            <div class="control">
+                                <button type="submit" class="button is-primary">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </body>
+</html>
+{{end}}

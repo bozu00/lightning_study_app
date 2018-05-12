@@ -1,0 +1,42 @@
+{{define "adminHeader"}}
+
+<nav class="navbar" role="navigation" aria-label="dropdown navigation">
+  <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        記事管理
+    </a>
+
+    <div class="navbar-dropdown">
+        <a class="navbar-item" href={{ reverse "AdminArticles" }}>
+          記事一覧
+      </a>
+      <a class="navbar-item" href={{ reverse "AdminArticleNew" }}>
+          記事作成
+      </a>
+      <hr class="navbar-divider">
+      <div class="navbar-item">
+        Version 0.7.0
+      </div>
+    </div>
+  </div>
+  <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        画像管理
+    </a>
+
+    <div class="navbar-dropdown">
+        <a class="navbar-item" href={{ reverse "AdminImages" }}>
+         画像一覧
+      </a>
+      <a class="navbar-item" href={{ reverse "AdminImageNew" }}>
+          画像登録
+      </a>
+      <hr class="navbar-divider">
+      <div class="navbar-item">
+        Version 0.7.0
+      </div>
+    </div>
+  </div>
+
+</nav>
+{{end}}

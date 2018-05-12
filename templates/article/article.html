@@ -1,0 +1,102 @@
+{{define "article"}}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/css/reset.css">
+        <link rel="stylesheet" href="/assets/css/article.css">
+
+        <link rel="shortcut icon" href=""> <!-- favicon -->
+    </head>
+    <body>
+        {{template "header"}}
+
+        <div class="eyeCatchImage">
+            <img class="eyeCatchImage__image" border="0" src="/uploads/image/{{.Article.EyecatchImagePath}}" alt="イラスト1">
+        </div>
+
+        <div class="breadcrumb">
+            <ul class="breadcrumb__lists">
+                <li class="breadcrumb__lists__list"><u>数学1</u></li>
+                <li class="breadcrumb__lists__list"><u>[4] 2次関数</u></li>
+                <li class="breadcrumb__lists__list"><u>[8] 最大値・最小値のない関数</u></li>
+            </ul>
+        </div>
+
+        <div class="articleTitle">
+            <div class="articleTitle__updateDate">
+                更新日 : 2018年5月1日
+            </div>
+            <div class="articleTitle__title">
+                {{.Article.Title}}
+            </div>
+            <div class="articleTitle__description">
+                {{.Article.Description}}
+            </div>
+        </div>
+
+
+        <div class="tableOfContents">
+            <div class="tableOfContents__title">
+                目次
+            </div>
+            <div class="tableOfContents__items">
+                {{range .Article.TableOfContents}}
+                <div class="tableOfContents__item">
+                    {{.}}
+                </div>
+                {{end}}
+            </div>
+        </div>
+
+        <!--
+        <div class="articleSection">
+            <h1 class="articleSection__title">
+                ① 最大値最小値がなしになる場合の解説
+            </h1>
+            <div class="articleSection__description">
+                それでは関数の最大値が「なし」とはどういうことかを見ていきましょう
+            </div>
+            <div class="articleSection__video">
+                <iframe src="https://www.youtube.com/embed/DWhUXpg25A0?rel=0&playsinline=1&showinfo=0&autoplay=1&color=white&controls=1&modestbranding=1&start=20&end=30" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+
+        </div>
+
+        <div class="articleSection">
+            <h1 class="articleSection__title">
+                ③  演習問題
+            </h1>
+            <div class="articleSection__description">
+                <p>
+                解けるようになったか確認してみましょう
+                </p>
+            </div>
+            <div class="articleSection__video">
+                <img src="/assets/image/excercise.png">
+            </div>
+        </div>
+        -->
+
+        {{ .Article.Content }}
+
+        {{template "footer"}}
+
+
+
+
+        <!-- SCRIPTS -->
+        <!-- Example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    </body>
+</html>
+
+
+
+{{end}}
