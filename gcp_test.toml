@@ -1,0 +1,19 @@
+name = "development"
+
+# to do portを実装
+# [api]
+# port = 80
+
+[asset]
+prefix = "https://storage.googleapis.com/lightning-school-uploads"
+useGCS = true
+GCSBucket = "lightning-school-uploads"
+# https://storage.googleapis.com/lightning-school-uploads
+#
+
+[db]
+host = "testing-db"
+port = 13306
+user = "developer"
+password = "password"
+dbname = "development"

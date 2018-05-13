@@ -8,7 +8,7 @@ testing:
 
 development:
     driver: mymysql
-    open: tcp:localhost:3306*developmet/developer/password
+    open: tcp:localhost:3306*development/developer/password
     
 #production:
 #    driver: mysql

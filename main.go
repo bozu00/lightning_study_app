@@ -9,10 +9,12 @@ import (
 	"log"
 	"reflect"
 	// "./src/environment"
-	"./src/setting"
+	// "./src/setting"
+	"./src/config"
 	"./src/handler"
 	// "./src/services"
 	"strings"
+	"os"
 )
 
 type Template struct {
@@ -27,13 +29,24 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 func main() {
 	e := echo.New()
 
-	runMode := setting.Production
-	setting.InitSetting(runMode)
+	// runMode := setting.Production
+	// setting.InitSetting(runMode)
+	if len(os.Args) != 2 {
+		log.Println("指定された引数の数が間違っています。")
+		os.Exit(1)
+	}
+
+	// if err := config.InitConfig("./config.toml"); err != nil {
+	if err := config.InitConfig(os.Args[1]); err != nil {
+		log.Printf("fail config %s", err.Error())
+		panic("fail config")
+		os.Exit(1)
+	}
 
     funcMap := template.FuncMap {
         "upper": strings.ToUpper,
 		"reverse": e.Reverse,
-		"imagePrefix": setting.GetInstance().GetAssetPrefix,
+		"imagePrefix": config.GetInstance().AssetConfig.GetPrefix,
 		// "assets" : ""
     }
 	t := &Template{

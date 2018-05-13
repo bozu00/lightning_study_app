@@ -9,7 +9,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"../setting"
+	"../config"
 )
 
 func checkErr(err error, msg string) bool {
@@ -33,14 +33,8 @@ func MySQLConnect(host string, port int, user string, pass string, dbname string
 }
 
 func DBConnect() *sqlx.DB {
-	switch setting.GetInstance().RunMode {
-	case setting.Development: 
-		log.Println("dubug")
-		return MySQLConnect("db", 3306, "developer", "password", "development")
-	case setting.Production:
-		return MySQLConnect("db", 3306, "developer", "password", "development")
-	default: 
-		return MySQLConnect("db", 3306, "developer", "password", "development")
-	}
+	c := config.GetInstance().DBConfig
+	return MySQLConnect(c.Host, c.Port, c.User, c.Password, c.Dbname)
+	// 	return MySQLConnect("db", 3306, "developer", "password", "development")
 }
 

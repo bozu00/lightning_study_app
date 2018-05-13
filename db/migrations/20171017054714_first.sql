@@ -4,6 +4,7 @@
 
 -- CREATE USER 'developer'@'%' IDENTIFIED BY 'password';
 -- grant all on development.* to 'developer'@'%' identified by 'password';
+-- CREATE DATABASE development CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

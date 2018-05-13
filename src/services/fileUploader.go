@@ -13,7 +13,7 @@ import (
 	"golang.org/x/net/context"
 
 	// env "../environment"
-	"../setting"
+	"../config"
 )
 
 
@@ -32,13 +32,18 @@ var sharedLocalFileUploader *localFileUploader = &localFileUploader{}
 var sharedGCPFileUploader *gcpFileUploader = &gcpFileUploader{}
 
 func GetFileUploader() FileUploader {
-	switch setting.GetInstance().RunMode  {
-	case setting.Development: return sharedLocalFileUploader
-	case setting.Production: return sharedGCPFileUploader
-	default: return sharedLocalFileUploader
+	// switch setting.GetInstance().RunMode  {
+	// case setting.Development: return sharedLocalFileUploader
+	// case setting.Production: return sharedGCPFileUploader
+	// default: return sharedLocalFileUploader
+	// }
+	c := config.GetInstance()
+	switch c.AssetConfig.UseGCS {
+		case true: return sharedGCPFileUploader
+		case false: return sharedLocalFileUploader
+		default: return sharedLocalFileUploader
 	}
 }
-
 
 
 func(self *gcpFileUploader) FileSave(file *multipart.FileHeader) (string) {
@@ -63,7 +68,8 @@ func(self *gcpFileUploader) FileSave(file *multipart.FileHeader) (string) {
 	// filePath := "uploads/image/" +  fileName
 
 	// uploads
-	err = gcsWrite(client, "lightning-school-uploads", fileName, src)
+	bucketName := config.GetInstance().AssetConfig.GCSBucket
+	err = gcsWrite(client, bucketName, fileName, src)
 	if err != nil {
 	}
 
@@ -103,6 +109,7 @@ func(self *localFileUploader) FileSave(file *multipart.FileHeader) (string) {
 
 	// ここでパスの確認
 	fileName := getSafeFileName()
+// 	filePath := config.GetInstance().AssetConfig.GetPrefix() + "/" + fileName
 	filePath := "uploads/image/" +  fileName
 
 	// サーバー上に保存するファイルを作成
