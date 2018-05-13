@@ -1,4 +1,4 @@
-name = "GCP Test Mode on Localhost"
+name = "Test Mode on GCP"
 
 # to do portを実装
 # [api]
@@ -11,7 +11,7 @@ GCSBucket = "lightning-school-uploads"
 # https://storage.googleapis.com/lightning-school-uploads
 
 [db]
-host = "testing-db"
+host = "localhost"
 port = 3306
 user = "developer"
 password = "password"
