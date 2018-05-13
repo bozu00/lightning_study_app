@@ -36,6 +36,7 @@ func GetInstance() *Config {
 
 type Config struct {
 	Name string `toml:"name"`
+	APIConfig APIConfig `toml:"api"`
 	AssetConfig AssetConfig `toml:"asset"`
 	DBConfig DBConfig  `toml:"db"`
 }
@@ -62,3 +63,7 @@ type DBConfig struct {
 	Dbname string
 }
 
+// APIConfig
+type APIConfig struct {
+	Port int
+}

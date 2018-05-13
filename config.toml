@@ -1,8 +1,8 @@
 name = "development"
 
 # to do portを実装
-# [api]
-# port = 80
+[api]
+port = 1323
 
 [asset]
 prefix = "/uploads/image"

@@ -1,8 +1,7 @@
 name = "Test Mode on GCP"
 
-# to do portを実装
-# [api]
-# port = 80
+[api]
+port = 80
 
 [asset]
 prefix = "https://storage.googleapis.com/lightning-school-uploads"
