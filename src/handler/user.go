@@ -9,8 +9,10 @@ import (
 	"log"
 
 
-	"../models"
-	"../responses"
+    "virtualhost.local/kirakira/lightning_study_app/src/models"
+    "virtualhost.local/kirakira/lightning_study_app/src/responses"
+	// "../models"
+	// "../responses"
 )
 
 

@@ -7,7 +7,9 @@ import (
 	"log"
 	//"reflect"
 	// "../models"
-	"../viewModel"
+	// "../viewModel"
+
+    "virtualhost.local/kirakira/lightning_study_app/src/viewModel"
 	// "../responses"
 	// "html/template"
     "github.com/Shaked/gomobiledetect"

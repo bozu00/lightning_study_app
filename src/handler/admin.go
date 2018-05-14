@@ -3,9 +3,13 @@ package handler
 import (
 	"github.com/labstack/echo"
 	"net/http"
-	"../services"
-	"../formModel"
-	"../models"
+	// "../services"
+	// "../formModel"
+	// "../models"
+
+    "virtualhost.local/kirakira/lightning_study_app/src/models"
+    "virtualhost.local/kirakira/lightning_study_app/src/formModel"
+    "virtualhost.local/kirakira/lightning_study_app/src/services"
 	"log"
 	"os"
 	"fmt"

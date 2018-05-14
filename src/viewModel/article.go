@@ -1,8 +1,10 @@
 package viewModel
 
 import (
-	"../models"
-	"../services"
+	// "../models"
+    "virtualhost.local/kirakira/lightning_study_app/src/models"
+    "virtualhost.local/kirakira/lightning_study_app/src/services"
+	// "../services"
 	"html/template"
 	"strings"
 	// "fmt"

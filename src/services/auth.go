@@ -12,7 +12,8 @@ import (
 	"github.com/labstack/echo"
 	"github.com/ipfans/echo-session"
 
-	"../responses"
+	// "../responses"
+    "virtualhost.local/kirakira/lightning_study_app/src/responses"
 )
 
 var (

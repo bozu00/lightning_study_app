@@ -30,23 +30,24 @@ build:
     - script:
        name: go get
        code: |
+         dep ensure -update -v
          # cd $WERCKER_SOURCE_DIR
-         go get -u github.com/go-sql-driver/mysql 
-         go get -u github.com/jmoiron/sqlx                  
-         go get -u github.com/labstack/echo                 
-         go get -u gopkg.in/gorp.v1                         
-         go get -u bitbucket.org/liamstask/goose/cmd/goose  
-         go get -u github.com/gorilla/sessions              
-         go get -u github.com/labstack/echo-contrib 
-         go get -u github.com/ipfans/echo-session           
-         go get -u github.com/dgrijalva/jwt-go              
-         go get -u github.com/boj/redistore
-         go get -u github.com/google/uuid
-         go get -u github.com/alecthomas/participle
-         go get -u cloud.google.com/go/storage
-         go get -u golang.org/x/net/context
-         go get -u github.com/BurntSushi/toml
-         go get -u github.com/githubnemo/CompileDaemon
+         # go get -u github.com/go-sql-driver/mysql 
+         # go get -u github.com/jmoiron/sqlx                  
+         # go get -u github.com/labstack/echo                 
+         # go get -u gopkg.in/gorp.v1                         
+         # go get -u bitbucket.org/liamstask/goose/cmd/goose  
+         # go get -u github.com/gorilla/sessions              
+         # go get -u github.com/labstack/echo-contrib 
+         # go get -u github.com/ipfans/echo-session           
+         # go get -u github.com/dgrijalva/jwt-go              
+         # go get -u github.com/boj/redistore
+         # go get -u github.com/google/uuid
+         # go get -u github.com/alecthomas/participle
+         # go get -u cloud.google.com/go/storage
+         # go get -u golang.org/x/net/context
+         # go get -u github.com/BurntSushi/toml
+         # go get -u github.com/githubnemo/CompileDaemon
 
     # Build the project
     - script:

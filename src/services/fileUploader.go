@@ -13,7 +13,8 @@ import (
 	"golang.org/x/net/context"
 
 	// env "../environment"
-	"../config"
+	// "../config"
+    "virtualhost.local/kirakira/lightning_study_app/src/config"
 )
 
 

@@ -9,7 +9,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"../config"
+	// "../config"
+
+    "virtualhost.local/kirakira/lightning_study_app/src/config"
 )
 
 func checkErr(err error, msg string) bool {

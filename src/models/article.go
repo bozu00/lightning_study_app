@@ -2,7 +2,8 @@ package models
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"../formModel"
+	// "../formModel"
+    "virtualhost.local/kirakira/lightning_study_app/src/formModel"
 	//"strconv"
 	//"log"
 )

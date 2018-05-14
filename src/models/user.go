@@ -3,7 +3,9 @@ package models
 import (
 	_ "github.com/go-sql-driver/mysql"
 
-	"../services"
+	// "../services"
+
+    "virtualhost.local/kirakira/lightning_study_app/src/services"
 )
 
 type User struct {
