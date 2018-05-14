@@ -1,7 +1,7 @@
 name = "Test Mode on GCP"
 
 [api]
-port = 80
+port = 1323
 
 [asset]
 prefix = "https://storage.googleapis.com/lightning-school-uploads"
