@@ -20,6 +20,7 @@ RUN go get -u cloud.google.com/go/storage
 RUN go get -u golang.org/x/net/context
 RUN go get -u github.com/BurntSushi/toml
 RUN go get -u github.com/githubnemo/CompileDaemon
+RUN go get -u github.com/Shaked/gomobiledetect 
 
 COPY google_application_credentials.json google_application_credentials.json
 ENV GOOGLE_APPLICATION_CREDENTIALS google_application_credentials.json
