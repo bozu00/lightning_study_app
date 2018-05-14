@@ -24,8 +24,9 @@ build:
   steps:
     # Sets the go workspace and places you package
     # at the right place in the workspace tree
-    - setup-go-workspace
-
+    # - setup-go-workspace
+    - wercker/setup-go-workspace:
+       package-dir: virtualhost.local/kirakira/lightning_study_app
     # Gets the dependencies
     - script:
        name: go get
