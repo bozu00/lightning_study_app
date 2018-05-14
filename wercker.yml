@@ -55,8 +55,8 @@ build:
     - script:
         name: go build
         code: |
-            #go build ./...
           dep ensure
+            #go build ./...
 
     # Test the project
     - script:
