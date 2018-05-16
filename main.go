@@ -29,7 +29,23 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
     return t.templates.ExecuteTemplate(w, name, data)
 }
 
-// go:generate go-assets-builder -o assets.go templates/
+
+/*
+func Render(w io.Writer, templateName string, data interface{}) {
+	f, err := Assets.Open(templateName)
+	buf := bytes.NewBuffer(nil)
+
+    io.Copy(buf, f)
+
+	tmpl, err := template.New(templateName).Parse(string(buf))
+
+	// Error checking elided
+	err = tmpl.Execute(w, data)
+	return err
+}
+*/
+
+// go:generate docker-compose exec app go-assets-builder -o src/handler/assets.go -p handler templates/
 func main() {
 	e := echo.New()
 

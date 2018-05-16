@@ -5,8 +5,12 @@ import (
 	"log"
 	"errors"
 	"net/http"
+	"html/template"
 	// "../services"
 	// "io"
+	"bytes"
+	"io"
+	"fmt"
 )
 
 func checkErr(err error, msg string) bool {
@@ -26,20 +30,19 @@ func checkErrPage(err error, c echo.Context) error {
 	return nil
 }
 
-/*
-func Render(w io.Writer, templateName string, data interface{}) {
+func Render(w io.Writer, templateName string, data interface{}) error {
 	f, err := Assets.Open(templateName)
 	buf := bytes.NewBuffer(nil)
 
     io.Copy(buf, f)
 
-	tmpl, err := template.New(templateName).Parse(string(buf))
+	tplString := fmt.Sprintf("%s", buf)
+	tmpl, err := template.New(templateName).Parse(tplString)
 
 	// Error checking elided
 	err = tmpl.Execute(w, data)
 	return err
 }
-*/
 
 // Handler
 
