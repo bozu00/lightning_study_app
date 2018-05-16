@@ -22,6 +22,7 @@ RUN go get -u github.com/BurntSushi/toml
 RUN go get -u github.com/githubnemo/CompileDaemon
 RUN go get -u github.com/Shaked/gomobiledetect 
 RUN go get -u github.com/golang/dep/cmd/dep
+RUN go get -u github.com/jessevdk/go-assets-builder
 
 COPY google_application_credentials.json google_application_credentials.json
 ENV GOOGLE_APPLICATION_CREDENTIALS google_application_credentials.json

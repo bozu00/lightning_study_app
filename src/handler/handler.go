@@ -6,6 +6,7 @@ import (
 	"errors"
 	"net/http"
 	// "../services"
+	// "io"
 )
 
 func checkErr(err error, msg string) bool {
@@ -25,6 +26,20 @@ func checkErrPage(err error, c echo.Context) error {
 	return nil
 }
 
+/*
+func Render(w io.Writer, templateName string, data interface{}) {
+	f, err := Assets.Open(templateName)
+	buf := bytes.NewBuffer(nil)
+
+    io.Copy(buf, f)
+
+	tmpl, err := template.New(templateName).Parse(string(buf))
+
+	// Error checking elided
+	err = tmpl.Execute(w, data)
+	return err
+}
+*/
 
 // Handler
 

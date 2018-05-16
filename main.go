@@ -29,7 +29,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
     return t.templates.ExecuteTemplate(w, name, data)
 }
 
-
+// go:generate go-assets-builder -o assets.go templates/
 func main() {
 	e := echo.New()
 
