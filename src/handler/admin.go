@@ -56,6 +56,7 @@ func AdminArticles(c echo.Context) error {
 		Msg string
 	}{ articleModels, "msg"}
 
+	// return Render(http.StatusOK, "admin/articles.html", strct)
     return c.Render(http.StatusOK, "adminArticles", strct)
 }
 
@@ -169,6 +170,6 @@ func AdminImages(c echo.Context) error {
 		Msg string
 	}{ images, "msg"}
 
-    return c.Render(http.StatusOK, "adminImages", strct)
+    return c.Render(http.StatusOK, "/templates/admin/images.html", strct)
 }
 

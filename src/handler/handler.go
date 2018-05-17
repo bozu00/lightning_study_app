@@ -30,6 +30,8 @@ func checkErrPage(err error, c echo.Context) error {
 	return nil
 }
 
+
+
 func Render(w io.Writer, templateName string, data interface{}) error {
 	f, err := Assets.Open(templateName)
 	buf := bytes.NewBuffer(nil)
@@ -37,6 +39,14 @@ func Render(w io.Writer, templateName string, data interface{}) error {
     io.Copy(buf, f)
 
 	tplString := fmt.Sprintf("%s", buf)
+
+	// funcMap := template.FuncMap {
+	// 	"upper": strings.ToUpper,
+	// 	"reverse": e.Reverse,
+	// 	"imagePrefix": config.GetInstance().AssetConfig.GetPrefix,
+	// 	// "assets" : ""
+	// }
+
 	tmpl, err := template.New(templateName).Parse(tplString)
 
 	// Error checking elided

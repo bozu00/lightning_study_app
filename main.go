@@ -19,14 +19,56 @@ import (
 	"strings"
 	"os"
 	"strconv"
+	"bytes"
+	"fmt"
 )
 
 type Template struct {
     templates *template.Template
+	echo *echo.Echo
 }
 
+// func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+//     return t.templates.ExecuteTemplate(w, name, data)
+// }
+
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-    return t.templates.ExecuteTemplate(w, name, data)
+    // return t.templates.ExecuteTemplate(w, name, data)
+
+	f, err := Assets.Open(name)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	buf := bytes.NewBuffer(nil)
+	log.Println("Asset")
+	log.Println(f)
+
+    _, err = io.Copy(buf, f)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	tplString := fmt.Sprintf("%s", buf)
+	log.Println(tplString)
+
+	funcMap := template.FuncMap {
+		"upper": strings.ToUpper,
+		"reverse": t.echo.Reverse,
+		"imagePrefix": config.GetInstance().AssetConfig.GetPrefix,
+		// "assets" : ""
+	}
+
+	tmpl, err := template.New(name).Funcs(funcMap).Parse(tplString)
+	if err != nil {
+		log.Println(err.Error())
+		return err
+	}
+
+	// Error checking elided
+	// err = tmpl.Execute(w, data)
+	return tmpl.Execute(w,data)
 }
 
 
@@ -69,6 +111,7 @@ func main() {
 	t := &Template{
 		// templates: template.Must(template.ParseGlob("templates/**.html")),
 		templates: template.Must(template.New("templates").Funcs(funcMap).ParseGlob("templates/**/**.html")),
+		echo: e,
 	}
     e.Renderer = t
 
@@ -85,6 +128,10 @@ func main() {
 			} else {
 				c.Render(http.StatusInternalServerError,"500",nil)
 			}
+		}
+
+		if err != nil {
+				c.Render(http.StatusInternalServerError,"500",nil)
 		}
 	}
 	e.Static("/assets", "assets") 
