@@ -139,9 +139,10 @@ func main() {
 
 
 	// e.Static("/assets", "assets") 
-	// fs := http.FileServer(http.Dir("/assets"))
+	// fs := http.FileServer(http.Dir("./assets"))
 	fs := http.FileServer(PublicAssets)
-	e.GET("/assets/*", echo.WrapHandler(http.StripPrefix("/assets", fs))) 
+	// e.GET("/assets/*", echo.WrapHandler(http.StripPrefix("/assets/", fs))) 
+	e.GET("/assets/*", echo.WrapHandler(fs)) 
 
 	e.GET("/hello_world",         handler.HelloWorld)
 	e.GET("/hello_template",      handler.HelloTemplate)
