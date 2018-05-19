@@ -107,6 +107,7 @@ func main() {
 	}
     e.Renderer = t
 
+    e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
@@ -128,15 +129,7 @@ func main() {
 	}
 
 
-	// e.Static("/assets", "assets") 
-
-	// e.GET("/assetss", http.FileServer(http.Dir("./assets"))) 
-
-	// e.Use(middkleware.Static("/assets"))
-
-	// e.Static("/images/slides", "upload_data")
 	e.Static("/uploads/image", "uploads/image")
-
 
 	// e.Static("/assets", "assets") 
 	// fs := http.FileServer(http.Dir("./assets"))
@@ -158,18 +151,18 @@ func main() {
 	// 	return false, nil
 	// }))
 
-	g.GET( "/articles/",                handler.AdminArticles).Name      = "AdminArticles"
-	g.GET( "/new_article/",             handler.AdminNewArticle).Name    = "AdminArticleNew"
-	g.POST("/create_article/",          handler.AdminCreateArticle).Name = "AdminArticleCreate"
+	g.GET( "/articles",                 handler.AdminArticles).Name      = "AdminArticles"
+	g.GET( "/new_article",              handler.AdminNewArticle).Name    = "AdminArticleNew"
+	g.POST("/create_article" ,          handler.AdminCreateArticle).Name = "AdminArticleCreate"
 	g.GET( "/edit_article/:article_id", handler.AdminEditArticle).Name   = "AdminArticle"
 	g.POST("/update_article/",          handler.AdminUpdateArticle).Name = "AdminUpdate"
 
 	// image
 	g.GET( "/images",                   handler.AdminImages).Name       = "AdminImages"
 	g.GET( "/image/:imageId",           handler.AdminImage).Name        = "AdminImage"
-	g.GET( "/new_image/",               handler.AdminFileUploader).Name = "AdminImageNew"
-	g.POST("/create_image/",            handler.AdminUploadFile).Name   = "AdminImageCreate"
-	g.POST("/delete_image/",            handler.AdminDeleteImage).Name  = "AdminImageDelete"
+	g.GET( "/new_image",                handler.AdminFileUploader).Name = "AdminImageNew"
+	g.POST("/create_image" ,            handler.AdminUploadFile).Name   = "AdminImageCreate"
+	g.POST("/delete_image",             handler.AdminDeleteImage).Name  = "AdminImageDelete"
 
 
     getAssetFilePaths(".*.html")

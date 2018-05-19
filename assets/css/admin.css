@@ -1,16 +1,17 @@
+.dummy {
+  color: red; }
+
 .section {
-    min-height: 800px;
-    background-color: #DDDBF0;
-}
+  min-height: 800px;
+  background-color: #dddbf0; }
 
 .container {
-    background-color: white;
-}
+  background-color: white; }
 
 .contents {
-    padding:20px;
-}
+  padding: 20px; }
 
 fieldset {
-    border-width: 0px;
-}
+  border-width: 0px; }
+
+/*# sourceMappingURL=admin.css.map */
