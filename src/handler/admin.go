@@ -170,6 +170,7 @@ func AdminImages(c echo.Context) error {
 		Msg string
 	}{ images, "msg"}
 
-    return c.Render(http.StatusOK, "/templates/admin/images.html", strct)
+    // return c.Render(http.StatusOK, "/templates/admin/images.html", strct)
+    return c.Render(http.StatusOK, "adminImages", strct)
 }
 

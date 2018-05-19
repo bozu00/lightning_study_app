@@ -8,19 +8,16 @@ import (
 	"net/http"
 	"log"
 	"reflect"
-	// "./src/environment"
-	// "./src/setting"
-	// "./src/config"
-	// "./src/handler"
-    // "virtualhost.local/kirakira/lightning_study_app/src/services"
     "virtualhost.local/kirakira/lightning_study_app/src/config"
     "virtualhost.local/kirakira/lightning_study_app/src/handler"
-	// "./src/services"
 	"strings"
 	"os"
 	"strconv"
 	"bytes"
 	"fmt"
+	"path"
+	"regexp"
+
 )
 
 type Template struct {
@@ -33,61 +30,34 @@ type Template struct {
 // }
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-    // return t.templates.ExecuteTemplate(w, name, data)
-
-	f, err := Assets.Open(name)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	buf := bytes.NewBuffer(nil)
-	log.Println("Asset")
-	log.Println(f)
-
-    _, err = io.Copy(buf, f)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-
-	tplString := fmt.Sprintf("%s", buf)
-	log.Println(tplString)
-
-	funcMap := template.FuncMap {
-		"upper": strings.ToUpper,
-		"reverse": t.echo.Reverse,
-		"imagePrefix": config.GetInstance().AssetConfig.GetPrefix,
-		// "assets" : ""
-	}
-
-	tmpl, err := template.New(name).Funcs(funcMap).Parse(tplString)
-	if err != nil {
-		log.Println(err.Error())
-		return err
-	}
-
-	// Error checking elided
-	// err = tmpl.Execute(w, data)
-	return tmpl.Execute(w,data)
+    return t.templates.ExecuteTemplate(w, name, data)
 }
 
+func getAssetFilePaths(pattern string) []string {
+	dirs := TemplateAssets.Dirs
+	paths := []string{}
+	for dir, files := range dirs {
+		for _, file := range files {
+			paths = append(paths, path.Join(dir, file))
+		}
+	}
 
-/*
-func Render(w io.Writer, templateName string, data interface{}) {
-	f, err := Assets.Open(templateName)
-	buf := bytes.NewBuffer(nil)
-
-    io.Copy(buf, f)
-
-	tmpl, err := template.New(templateName).Parse(string(buf))
-
-	// Error checking elided
-	err = tmpl.Execute(w, data)
-	return err
+	res := []string{}
+	// pattern := ".*.html"
+	for _, file := range paths {
+		bl, err := regexp.MatchString(pattern, file)
+		if err != nil {
+			log.Println(err.Error())
+		}
+		if bl {
+			res = append(res, file)
+		} 	
+	}
+	return res
 }
-*/
 
-// go:generate docker-compose exec app go-assets-builder -o src/handler/assets.go -p handler templates/
+// go:generate go-assets-builder -o templateAssets.go -p main -v TemplateAssets assets/
+// go:generate go-assets-builder -o publicAssets.go -p main -v PublicAssets templates/
 func main() {
 	e := echo.New()
 
@@ -108,9 +78,31 @@ func main() {
 		"imagePrefix": config.GetInstance().AssetConfig.GetPrefix,
 		// "assets" : ""
     }
+
+	htmlFiles := getAssetFilePaths(".*.html")
+	var temp = template.New("templates")
+	for _, file := range htmlFiles {
+
+		f, err := TemplateAssets.Open(file)
+		if err != nil {
+			log.Println(err)
+		}
+
+		buf := bytes.NewBuffer(nil)
+		_, err = io.Copy(buf, f)
+		if err != nil {
+			log.Println(err)
+		}
+
+		tplString := fmt.Sprintf("%s", buf)
+
+		temp.Funcs(funcMap).Parse(tplString)
+		// temp, err = template.New("templates").Funcs(funcMap).Parse(tplString)
+	}
+
 	t := &Template{
-		// templates: template.Must(template.ParseGlob("templates/**.html")),
-		templates: template.Must(template.New("templates").Funcs(funcMap).ParseGlob("templates/**/**.html")),
+		// templates: template.Must(template.New("templates").Funcs(funcMap).ParseGlob("templates/**/**.html")),
+		templates: temp,
 		echo: e,
 	}
     e.Renderer = t
@@ -134,13 +126,22 @@ func main() {
 				c.Render(http.StatusInternalServerError,"500",nil)
 		}
 	}
-	e.Static("/assets", "assets") 
+
+
+	// e.Static("/assets", "assets") 
+
+	// e.GET("/assetss", http.FileServer(http.Dir("./assets"))) 
 
 	// e.Use(middkleware.Static("/assets"))
 
 	// e.Static("/images/slides", "upload_data")
 	e.Static("/uploads/image", "uploads/image")
 
+
+	// e.Static("/assets", "assets") 
+	// fs := http.FileServer(http.Dir("/assets"))
+	fs := http.FileServer(PublicAssets)
+	e.GET("/assets/*", echo.WrapHandler(http.StripPrefix("/assets", fs))) 
 
 	e.GET("/hello_world",         handler.HelloWorld)
 	e.GET("/hello_template",      handler.HelloTemplate)
@@ -169,6 +170,8 @@ func main() {
 	g.POST("/create_image/",            handler.AdminUploadFile).Name   = "AdminImageCreate"
 	g.POST("/delete_image/",            handler.AdminDeleteImage).Name  = "AdminImageDelete"
 
+
+    getAssetFilePaths(".*.html")
 
 	port := config.GetInstance().APIConfig.Port
 	e.Logger.Fatal(e.Start(":" + strconv.Itoa(port)))

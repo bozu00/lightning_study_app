@@ -5,12 +5,12 @@ import (
 	"log"
 	"errors"
 	"net/http"
-	"html/template"
+	// "html/template"
 	// "../services"
 	// "io"
-	"bytes"
-	"io"
-	"fmt"
+	// "bytes"
+	// "io"
+	// "fmt"
 )
 
 func checkErr(err error, msg string) bool {
@@ -27,11 +27,12 @@ func checkErrPage(err error, c echo.Context) error {
 		c.String(http.StatusNotFound, "not found page")
 		return errors.New("error")
 	}
+
 	return nil
 }
 
 
-
+/*
 func Render(w io.Writer, templateName string, data interface{}) error {
 	f, err := Assets.Open(templateName)
 	buf := bytes.NewBuffer(nil)
@@ -53,6 +54,7 @@ func Render(w io.Writer, templateName string, data interface{}) error {
 	err = tmpl.Execute(w, data)
 	return err
 }
+*/
 
 // Handler
 

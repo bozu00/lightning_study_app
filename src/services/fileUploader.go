@@ -11,6 +11,7 @@ import (
     "encoding/base64"
 	"cloud.google.com/go/storage"
 	"golang.org/x/net/context"
+	"path"
 
 	// env "../environment"
 	// "../config"
@@ -111,7 +112,14 @@ func(self *localFileUploader) FileSave(file *multipart.FileHeader) (string) {
 	// ここでパスの確認
 	fileName := getSafeFileName()
 // 	filePath := config.GetInstance().AssetConfig.GetPrefix() + "/" + fileName
-	filePath := "uploads/image/" +  fileName
+    dir := "uploads/image"
+	err = os.MkdirAll(dir, os.ModePerm)
+	if err != nil {
+		log.Println("fail to create dir :" + dir)
+	}
+
+	filePath := path.Join(dir,fileName)
+
 
 	// サーバー上に保存するファイルを作成
 	// ここをループ
