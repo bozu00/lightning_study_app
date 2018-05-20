@@ -10,28 +10,39 @@ import (
 	// "fmt"
 	"regexp"
 	//"strings"
-	"io/ioutil"
+	// "io/ioutil"
+	"log"
+	"bytes"
+	"io"
+	"fmt"
 )
 
 
 
 func Parse(articleRawText string) string{
 
-	templateName := "templates/parserItem/"
-    tmplH1, err := ioutil.ReadFile( templateName + "h1.tmpl")
-    if err != nil {
-        panic(err)
-    }
-    tmplP, err := ioutil.ReadFile( templateName + "p.tmpl")
-    if err != nil {
-        panic(err)
-    }
-    tmplVideo, err := ioutil.ReadFile( templateName + "video.tmpl")
+
+	templateName := "/templates/parserItem/"
+	// tmplH1, err := ioutil.ReadFile( templateName + "h1.tmpl")
+    tmplH1, err := readTmplFile(templateName + "h1.tmpl")
     if err != nil {
         panic(err)
     }
 
-    tmplImage, err := ioutil.ReadFile( templateName + "image.tmpl")
+    tmplP, err := readTmplFile(templateName + "p.tmpl")
+    // tmplP, err := ioutil.ReadFile( templateName + "p.tmpl")
+    if err != nil {
+        panic(err)
+    }
+
+    tmplVideo, err := readTmplFile(templateName + "video.tmpl")
+    // tmplVideo, err := ioutil.ReadFile( templateName + "video.tmpl")
+    if err != nil {
+        panic(err)
+    }
+
+    tmplImage, err := readTmplFile(templateName + "image.tmpl")
+    // tmplImage, err := ioutil.ReadFile( templateName + "image.tmpl")
     if err != nil {
         panic(err)
     }
@@ -69,3 +80,22 @@ func Parse(articleRawText string) string{
 	return res 
 }
 
+func readTmplFile(filename string) (string, error) {
+	f, err := ArticlePartsAssets.Open(filename)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println("---------------------")
+	log.Println(f)
+
+	buf := bytes.NewBuffer(nil)
+	_, err = io.Copy(buf, f)
+	if err != nil {
+		log.Println(err)
+	}
+
+	tplString := fmt.Sprintf("%s", buf)
+	log.Println("---------------------")
+	log.Println(tplString)
+	return tplString, nil
+}
