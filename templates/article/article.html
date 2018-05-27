@@ -16,12 +16,17 @@
         <link rel="shortcut icon" href=""> <!-- favicon -->
     </head>
     <body>
+        <!--
         {{template "header"}}
+        -->
 
+        <!--
         <div class="eyeCatchImage">
             <img class="eyeCatchImage__image" border="0" src="/uploads/image/{{.Article.EyecatchImagePath}}" alt="イラスト1">
         </div>
+        -->
 
+        <!--
         <div class="breadcrumb">
             <ul class="breadcrumb__lists">
                 <li class="breadcrumb__lists__list"><u>数学1</u></li>
@@ -29,17 +34,40 @@
                 <li class="breadcrumb__lists__list"><u>[8] 最大値・最小値のない関数</u></li>
             </ul>
         </div>
+        -->
+        <div class="eyeCatchImage">
+            <img class="eyeCatchImage__image" border="0" src="/uploads/image/{{.Article.EyecatchImagePath}}" alt="イラスト1">
+            <!-- 
+            <div class="eyeCatchContents">
+                <div class="articleTitle__updateDate">
+                    更新日 : 2018年5月1日
+                </div>
+                <div class="articleTitle__title">
+                    {{.Article.Title}}
+                </div>
+                <div class="articleTitle__description">
+                    {{.Article.Description}}
+                </div>
+            </div>
+            -->
 
-        <div class="articleTitle">
-            <div class="articleTitle__updateDate">
+            <div class="eyeCatchImage__updateDate">
                 更新日 : 2018年5月1日
             </div>
+        </div>
+
+        <div class="articleTitle">
             <div class="articleTitle__title">
                 {{.Article.Title}}
             </div>
             <div class="articleTitle__description">
                 {{.Article.Description}}
             </div>
+            <!--
+            <div class="articleTitle__updateDate">
+                更新日 : 2018年5月1日
+            </div>
+            -->
         </div>
 
 
@@ -87,7 +115,9 @@
 
         {{ .Article.Content }}
 
+        <!--
         {{template "footer"}}
+        -->
 
 
 

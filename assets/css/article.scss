@@ -39,13 +39,32 @@ img {
 .eyeCatchImage {
     /* margin-top: 50px; */
     width: 100%;
+    position: relative;
     &__image {
         width: 100%;
-        height: auto;
+        height: 200px;
+    }
+    & img {
+        height: 200px;
+        display: block; 
+        -webkit-filter: opacity(.5);
+        filter: opacity(.5);
+        object-fit: cover;  /* 中央でトリミングされる */
+    }
+
+    & .eyeCatchContents {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &__updateDate {
+        color: #707070;
+        font-size: 9px;
+        position: absolute;
+        bottom: 5px;
+        right:  10px;
     }
 }
-
-
 
 .breadcrumb {
     background-color: #F0F0F0;
@@ -78,16 +97,17 @@ img {
     &__updateDate {
         color: #707070;
         font-size: 9px;
-        padding-top: 10px;
+        text-align: right;
+        margin-right: 10px;
     }
     &__title {
-        padding-top: 15px;
+        padding-top: 30px;
         font-size: 15pt;
         font-weight: bold;
     }
     &__description {
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: 25px;
+        padding-bottom: 20px;
         font-size: 9pt;
         color: #343434;
     }

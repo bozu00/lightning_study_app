@@ -10,6 +10,7 @@ import (
     "virtualhost.local/kirakira/lightning_study_app/src/models"
     "virtualhost.local/kirakira/lightning_study_app/src/formModel"
     "virtualhost.local/kirakira/lightning_study_app/src/services"
+    // "virtualhost.local/kirakira/lightning_study_app/src/customError"
 	"log"
 	"os"
 	"fmt"
@@ -32,7 +33,7 @@ func AdminCreateArticle(c echo.Context) error {
 
 	articleId, err := models.CreateArticle(*articleForm)
 	if err != nil {
-
+		return err
 	}
 
 	return c.Redirect(http.StatusMovedPermanently, "/admin/edit_article/" + strconv.FormatInt(articleId, 10))
@@ -170,6 +171,7 @@ func AdminImages(c echo.Context) error {
 		Msg string
 	}{ images, "msg"}
 
+	// return customError.TestError
     // return c.Render(http.StatusOK, "/templates/admin/images.html", strct)
     return c.Render(http.StatusOK, "adminImages", strct)
 }

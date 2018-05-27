@@ -10,6 +10,7 @@ import (
 	"reflect"
     "virtualhost.local/kirakira/lightning_study_app/src/config"
     "virtualhost.local/kirakira/lightning_study_app/src/handler"
+    "virtualhost.local/kirakira/lightning_study_app/src/customError"
 	"strings"
 	"os"
 	"strconv"
@@ -113,18 +114,28 @@ func main() {
 
 
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
+		log.Println("error type") 
 		log.Println(reflect.TypeOf(err))
 		log.Println(err.Error())
+		if _, ok := err.(customError.CustomError); ok {
+			log.Println("this is custom errror")
+			c.Render(http.StatusInternalServerError,"500",nil)
+			return
+		}
+
+
 		if he, ok := err.(*echo.HTTPError); ok {
 			if he.Code == 404 {
 				c.Render(http.StatusNotFound,"404",nil)
 			} else {
 				c.Render(http.StatusInternalServerError,"500",nil)
 			}
+			return 
 		}
 
 		if err != nil {
-				c.Render(http.StatusInternalServerError,"500",nil)
+			c.Render(http.StatusInternalServerError,"500",nil)
+			return 
 		}
 	}
 
@@ -135,7 +146,11 @@ func main() {
 	// fs := http.FileServer(http.Dir("./assets"))
 	fs := http.FileServer(PublicAssets)
 	// e.GET("/assets/*", echo.WrapHandler(http.StripPrefix("/assets/", fs))) 
-	e.GET("/assets/*", echo.WrapHandler(fs)) 
+	if config.GetInstance().Name == "development" {
+		e.Static("/assets", "assets") 
+	} else {
+		e.GET("/assets/*", echo.WrapHandler(fs)) 
+	}
 
 	e.GET("/hello_world",         handler.HelloWorld)
 	e.GET("/hello_template",      handler.HelloTemplate)
@@ -155,7 +170,7 @@ func main() {
 	g.GET( "/new_article",              handler.AdminNewArticle).Name    = "AdminArticleNew"
 	g.POST("/create_article" ,          handler.AdminCreateArticle).Name = "AdminArticleCreate"
 	g.GET( "/edit_article/:article_id", handler.AdminEditArticle).Name   = "AdminArticle"
-	g.POST("/update_article/",          handler.AdminUpdateArticle).Name = "AdminUpdate"
+	g.POST("/update_article",          handler.AdminUpdateArticle).Name = "AdminUpdate"
 
 	// image
 	g.GET( "/images",                   handler.AdminImages).Name       = "AdminImages"

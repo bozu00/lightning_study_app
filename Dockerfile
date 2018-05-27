@@ -28,4 +28,7 @@ RUN go get -u github.com/go-playground/justdoit
 COPY google_application_credentials.json google_application_credentials.json
 ENV GOOGLE_APPLICATION_CREDENTIALS google_application_credentials.json
 
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
 WORKDIR $GOPATH

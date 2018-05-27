@@ -31,10 +31,28 @@ img {
 
 .eyeCatchImage {
   /* margin-top: 50px; */
-  width: 100%; }
+  width: 100%;
+  position: relative; }
   .eyeCatchImage__image {
     width: 100%;
-    height: auto; }
+    height: 200px; }
+  .eyeCatchImage img {
+    height: 200px;
+    display: block;
+    -webkit-filter: opacity(0.5);
+    filter: opacity(0.5);
+    object-fit: cover;
+    /* 中央でトリミングされる */ }
+  .eyeCatchImage .eyeCatchContents {
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .eyeCatchImage__updateDate {
+    color: #707070;
+    font-size: 9px;
+    position: absolute;
+    bottom: 5px;
+    right: 10px; }
 
 .breadcrumb {
   background-color: #F0F0F0; }
@@ -62,14 +80,15 @@ img {
   .articleTitle__updateDate {
     color: #707070;
     font-size: 9px;
-    padding-top: 10px; }
+    text-align: right;
+    margin-right: 10px; }
   .articleTitle__title {
-    padding-top: 15px;
+    padding-top: 30px;
     font-size: 15pt;
     font-weight: bold; }
   .articleTitle__description {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 25px;
+    padding-bottom: 20px;
     font-size: 9pt;
     color: #343434; }
 

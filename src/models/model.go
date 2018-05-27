@@ -31,7 +31,7 @@ func logger(obj interface{}) {
 func MySQLConnect(host string, port int, user string, pass string, dbname string) *sqlx.DB {
 	db, err := sqlx.Connect("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=true&loc=Japan", user, pass, host, strconv.Itoa(port), dbname))
 	checkErr(err, "sqlx.Open failed")
-	return db
+	return db.Unsafe()
 }
 
 func DBConnect() *sqlx.DB {

@@ -85,8 +85,6 @@ func readTmplFile(filename string) (string, error) {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println("---------------------")
-	log.Println(f)
 
 	buf := bytes.NewBuffer(nil)
 	_, err = io.Copy(buf, f)
@@ -95,7 +93,5 @@ func readTmplFile(filename string) (string, error) {
 	}
 
 	tplString := fmt.Sprintf("%s", buf)
-	log.Println("---------------------")
-	log.Println(tplString)
 	return tplString, nil
 }
